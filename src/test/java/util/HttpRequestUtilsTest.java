@@ -70,4 +70,31 @@ public class HttpRequestUtilsTest {
         Pair pair = HttpRequestUtils.parseHeader(header);
         assertThat(pair, is(new Pair("Content-Length", "59")));
     }
+
+    @Test
+    public void getUrl() {
+        String data = "GET /index.html HTTP/1.1";
+
+        String url = HttpRequestUtils.getPath(data.split(" "));
+
+        assertThat(url, is("/index.html"));
+    }
+
+    @Test
+    public void getUrl_notGet() {
+        String data = "Host: localhost:8080";
+
+        String url = HttpRequestUtils.getPath(data.split(" "));
+
+        assertThat(url, is(nullValue()));
+    }
+
+    @Test
+    public void getUrl_invalid() {
+        String data = "";
+
+        String url = HttpRequestUtils.getPath(data.split(" "));
+
+        assertThat(url, is(nullValue()));
+    }
 }

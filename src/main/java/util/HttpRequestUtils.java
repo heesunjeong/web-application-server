@@ -53,6 +53,14 @@ public class HttpRequestUtils {
         return getKeyValue(header, ": ");
     }
 
+    public static String getPath(String[] tokens) {
+        if (tokens.length != 3 || !tokens[0].equals("GET")) {
+            return null;
+        }
+
+        return tokens[1];
+    }
+
     public static class Pair {
         String key;
         String value;
